@@ -42,5 +42,15 @@ namespace Plang.Compiler.Backend.Rvm
                   return UniquifyName(name);
             }
         }
+
+        public string GetMachineImplName(Machine m)
+        {
+            return $"Impl_{GetNameForDecl(m)}";
+        }
+
+        public string GetHandlerName(PEvent e)
+        {
+            return $"handle_{GetNameForDecl(e)}";
+        }
     }
 }

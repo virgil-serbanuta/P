@@ -1,5 +1,6 @@
 using Plang.Compiler.TypeChecker.AST.Declarations;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Plang.Compiler.Backend.Rvm
 {
@@ -28,6 +29,13 @@ namespace Plang.Compiler.Backend.Rvm
         public string GetStaticMethodQualifiedName(Function function)
         {
             return $"{GlobalFunctionClassName}.{Names.GetNameForDecl(function)}";
+        }
+
+        public void  WriteIndent(StringWriter output, int level)
+        {
+            for (int i = 0; i < level; i++) {
+                Write(output, "  ");
+            }
         }
     }
 }
