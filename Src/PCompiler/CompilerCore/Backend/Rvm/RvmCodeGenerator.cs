@@ -7,7 +7,11 @@ namespace Plang.Compiler.Backend.Rvm
     {
         public IEnumerable<CompiledFile> GenerateCode(ICompilationJob job, Scope globalScope)
         {
-            return new List<CompiledFile> { };
+            CompilationContext context = new CompilationContext(job);
+            List<CompiledFile> sources = new List<CompiledFile>();
+            sources.AddRange(
+                new MopCodeGenerator(context).GenerateSources(globalScope));
+            return sources;
         }
     }
 }
