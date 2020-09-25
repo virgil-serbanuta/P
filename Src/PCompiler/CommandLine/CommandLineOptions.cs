@@ -100,6 +100,10 @@ namespace Plang.Compiler
                                     outputLanguage = CompilerOutput.Coyote;
                                     break;
 
+                                case "rvm":
+                                    outputLanguage = CompilerOutput.Rvm;
+                                    break;
+
                                 default:
                                     CommandlineOutput.WriteMessage(
                                         $"Unrecognized generate option '{colonArg}', expecting C or Coyote",
@@ -350,6 +354,10 @@ namespace Plang.Compiler
 
                     case "coyote":
                         outputLanguage = CompilerOutput.Coyote;
+                        break;
+
+                    case "rvm":
+                        outputLanguage = CompilerOutput.Rvm;
                         break;
 
                     default:
