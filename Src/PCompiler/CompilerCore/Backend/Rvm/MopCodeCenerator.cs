@@ -1,4 +1,7 @@
 using Plang.Compiler.TypeChecker;
+using Plang.Compiler.TypeChecker.AST;
+using Plang.Compiler.TypeChecker.AST.Declarations;
+using System;
 using System.Collections.Generic;
 
 namespace Plang.Compiler.Backend.Rvm
@@ -14,7 +17,38 @@ namespace Plang.Compiler.Backend.Rvm
 
         public IEnumerable<CompiledFile> GenerateSources(Scope globalScope)
         {
-            return new List<CompiledFile> {};
+            List<CompiledFile> sources = new List<CompiledFile>();
+
+            foreach (IPDecl decl in globalScope.AllDecls)
+            {
+                switch (decl)
+                {
+                    case Machine machine:
+                        if (machine.IsSpec)
+                        {
+                            sources.Add(WriteMonitor(machine));
+                        }
+                        else
+                        {
+                            sources.Add(WriteMachine(machine));
+                        }
+
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            return sources;
+        }
+
+        CompiledFile WriteMonitor(Machine machine) {
+            CompiledFile source = new CompiledFile(Context.MopFileName(machine.Name));
+            return source;
+        }
+
+        CompiledFile WriteMachine(Machine machine) {
+            throw new NotImplementedException();
         }
     }
 }
